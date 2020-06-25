@@ -41,7 +41,14 @@ async function handleIncomingSMS(body, callback) {
   const messageBody = await getLabel(mediaUrl);
   
   //Respond to webhook with label message
-  callback(null, messageBody);
+  const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
+
+  const response = new MessagingResponse();
+  response.message(messageBody);
+
+  console.log(response.toString());
+  callback(null, response.toString());
   
 }
 
